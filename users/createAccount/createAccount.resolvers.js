@@ -36,7 +36,7 @@ export default {
       } catch (error) {
         return {
           ok: false,
-          error: "Can't create account.",
+          error: error.message,
         };
       }
     },
