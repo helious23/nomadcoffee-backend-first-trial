@@ -1,11 +1,11 @@
 import { createWriteStream } from "fs";
 import bcrypt from "bcrypt";
 import client from "../../client";
-import { protedtedResolver } from "../users.utils";
+import { protectedResolver } from "../users.utils";
 
 export default {
   Mutation: {
-    editProfile: protedtedResolver(
+    editProfile: protectedResolver(
       async (
         _,
         {

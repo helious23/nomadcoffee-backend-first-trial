@@ -6,9 +6,22 @@ export default gql`
     username: String!
     email: String!
     name: String!
-    location: String!
+
+    # Edit Profile
+    location: String
     avatarUrl: String
     githubUsername: String
+
+    # Follow
+    following: [User]
+    followers: [User]
+
+    # Computed field
+    totalFollowing: Int!
+    totalFollowers: Int!
+    isMe: Boolean!
+    isFollowing: Boolean!
+
     createdAt: String!
     updatedAt: String!
   }
