@@ -1,43 +1,33 @@
-import client from "../../client";
+import client from "../client";
 
 export default {
-  Query: {
-    seeUser: async (_, { username, lastId }) => {
-      const ok = await client.user.findUnique({
-        where: { username },
-        select: { id: true },
-      });
-      if (!ok) {
-        return {
-          ok: false,
-          error: "User not found.",
-        };
-      }
-      const followers = client.user
-        .findUnique({ where: { username } })
-        .followers({
-          take: 5,
-          skip: lastId ? 1 : 0,
-          ...(lastId && { cursor: { id: lastId } }), // follower user 의 id(unique)
-        });
-      const following = client.user
-        .findUnique({ where: { username } })
+  User: {
+    following: async ({ id }, { lastId }) =>
+      await client.user
+        .findUnique({
+          where: {
+            id,
+          },
+        })
         .following({
           take: 5,
           skip: lastId ? 1 : 0,
-          ...(lastId && { cursor: { id: lastId } }), // following user 의 id(unique)
-        });
-      return {
-        ok: true,
-        followers,
-        following,
-      };
-    },
-  },
+          ...(lastId && { cursor: { id: lastId } }),
+        }),
 
-  // Computed Field
+    followers: async ({ id }, { lastId }) =>
+      await client.user
+        .findUnique({
+          where: {
+            id,
+          },
+        })
+        .followers({
+          take: 5,
+          skip: lastId ? 1 : 0,
+          ...(lastId && { cursor: { id: lastId } }),
+        }),
 
-  User: {
     totalFollowing: ({ id }) =>
       client.user.count({
         where: {

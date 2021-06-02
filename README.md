@@ -22,3 +22,11 @@ Instaclone Challenge
 - [x] See User (Following, Followers) /w Pagination
 - [x] Computed Field
 - [x] Search Users
+
+## Day 9, 10
+- [x] Create CoffeeShop w/ categories
+- [x] See CoffeeShop
+- [x] See CoffeeShops
+- [x] See Categories
+- [x] Search CoffeeShops
+- [x] Edit CoffeeShop

@@ -13,8 +13,8 @@ export default gql`
     githubUsername: String
 
     # Follow
-    following: [User]
-    followers: [User]
+    following(lastId: Int): [User]
+    followers(lastId: Int): [User]
 
     # Computed field
     totalFollowing: Int!
