@@ -1,7 +1,7 @@
-import { createWriteStream } from "fs";
 import bcrypt from "bcrypt";
 import client from "../../client";
 import { protectedResolver } from "../users.utils";
+import { uploadToS3 } from "../../shared/shred.utils";
 
 export default {
   Mutation: {
@@ -21,14 +21,7 @@ export default {
       ) => {
         let avatar = null;
         if (avatarUrl) {
-          const { filename, createReadStream } = await avatarUrl;
-          const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
-          const readStream = createReadStream();
-          const writeStream = createWriteStream(
-            process.cwd() + "/uploads/" + newFilename
-          );
-          readStream.pipe(writeStream);
-          avatar = `http://localhost:4000/static/${newFilename}`;
+          avatar = await uploadToS3(avatar, loggedInUser.id, "avatars");
         }
 
         let hashedPassword = null;
