@@ -14,9 +14,9 @@ export default {
         let categoryObj = [];
         let slug = null;
         if (categories) {
-          slug = categories.map((category) =>
-            category.replaceAll(" ", "-").toLowerCase()
-          );
+          // slug = categories.map((category) =>
+          //   category.replaceAll(" ", "-").toLowerCase()
+          // );
           categoryObj = processCategories(categories);
         }
         const createdCoffeeShop = await client.coffeeShop.create({
